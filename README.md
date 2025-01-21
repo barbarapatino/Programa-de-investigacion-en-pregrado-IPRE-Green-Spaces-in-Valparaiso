@@ -2,4 +2,4 @@
 
 **Menotra de la Investigación:** Estela Blanco  - College UC y Escuela de Salud Pública, Pontificia Universidad Católica de Chile
 
-**Nombre Estudiante:** Barbara Patino – Estudiante de Ingeniería Civil UC
+**Nombre Estudiante:** Bárbara Patiño – Estudiante de Ingeniería Civil UC
