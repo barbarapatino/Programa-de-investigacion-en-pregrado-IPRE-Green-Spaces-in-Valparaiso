@@ -1,6 +1,7 @@
 # Al ser MAC
 .DS_Store
-
+.vscode/
+code/births_valparaiso_1992_2020/births_valparaiso.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
