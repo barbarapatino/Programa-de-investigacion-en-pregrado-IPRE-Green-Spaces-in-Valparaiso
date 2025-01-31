@@ -22,6 +22,19 @@ Los datos utilizados en este proyecto corresponden a registros agregados a nivel
 
 ## Principales Productos
 Este repositorio incluye:
-1. **Tablas**: Resumenes estadísticos
-2. **Gráficos**: Visualizaciones de tendencias y relaciones
-3. **Mapas**: Representaciones geoespaciales que ilustran la variación de indicadores a nivel comunal.
+1. **Tablas**: Tablas resumen de valores de NDVI para las Comunas de la V Región para Verano, Invierno y ambas estaciones
+2. **Gráficos**: Mapas de la Región de Valparaíso y de Gran Valparaíso que reflejan los valores de NDVI entre 2002-2022
+3. **Funciones**: Asignación de NDVI de Verano o Invierno según la estación del año al momento del tercer trimestre de embarazo
+
+## Estructura del Repositorio
+* **births_valparaiso_1992_2020/**: Contiene los datos de nacimientos en la V Región entre 1992-2020
+* **green_spaces_data/**: contiene los valores las medias de NDVI de verano e invierno de la Región Metropolitana y la V Región
+* **SOVI/**: Contiene los valores de Índice de vulnerabilidad social en Chile 
+* **Polígonos/**: Archivos JSON con las geometrías de las comunas de la Región de Valparaíso.
+* **region_valparaiso**: jupyter notebook con análisis de resultados para la Región de Valparaíso
+* **gran_valparaíso**: jupyter notebook con análisis de resultados para el Gran Valparaíso
+* **carga_datos**: Archivo python donde se pre procesaron los datos con los valores de NDVI
+* **output_analysis/**: Mapas, tablas y gráficos generados
+
+## Contacto
+Para consultas, contactar a Bárbara Patiño
