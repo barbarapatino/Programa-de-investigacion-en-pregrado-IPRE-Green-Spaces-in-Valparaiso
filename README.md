@@ -22,8 +22,8 @@ Los datos utilizados en este proyecto corresponden a registros agregados a nivel
 
 ## Principales Productos
 Este repositorio incluye:
-1. **Tablas**: Tablas resumen de valores de NDVI para las Comunas de la V Región para Verano, Invierno y ambas estaciones
-2. **Gráficos**: Mapas de la Región de Valparaíso y de Gran Valparaíso que reflejan los valores de NDVI entre 2002-2022
+1. **Tablas**: Tablas resumen de valores de NDVI por comuna y peso al nacer
+2. **Gráficos**: Mapas de la Región de Valparaíso y de Gran Valparaíso que reflejan los valores de NDVI entre 2002-2022. Gráficos de dispersion que incluyen valores de NDVI, peso al nacer y SOVI
 3. **Funciones**: Asignación de NDVI de Verano o Invierno según la estación del año al momento del tercer trimestre de embarazo
 
 ## Estructura del Repositorio
