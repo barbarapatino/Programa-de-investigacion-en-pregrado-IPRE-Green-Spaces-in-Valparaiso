@@ -35,6 +35,7 @@ Este repositorio incluye:
 * **gran_valparaíso**: jupyter notebook con análisis de resultados para el Gran Valparaíso
 * **carga_datos**: Archivo python donde se pre procesaron los datos con los valores de NDVI
 * **output_analysis/**: Mapas, tablas y gráficos generados
+* **valparaiso.R**: spcript en R para replcar algunos análisis hechos es _region_valparaiso_
 
 ## Contacto
 Para consultas, contactar a Bárbara Patiño
