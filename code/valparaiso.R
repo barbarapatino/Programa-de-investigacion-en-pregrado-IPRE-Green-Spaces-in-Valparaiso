@@ -224,18 +224,11 @@ fit_model <- function(predictor) {
 
   # Filtrar filas sin NA en las variables relevantes
   df_filtered <- df_nacimientos_termino_total %>%
-    filter(!is.na(.data[[predictor]]), !is.na(tbw))
-
-  # Verificar si hay suficientes datos
-  if (nrow(df_filtered) < 10) {
-    warning(paste("⚠️ Pocos datos disponibles para", predictor))
-    return(NULL)
-  }
+    filter(!is.na(.data[[predictor]]))
 
   # Ajustar el modelo de regresión lineal
   model_fit <- lm(formula, data = df_filtered)
 
-  # Extraer resultados con coeficientes y estadísticas
   results <- tidy(model_fit, conf.int = TRUE, conf.level = 0.95) %>%
     mutate(estimate = round(estimate, 3), 
            std.error = round(std.error, 3),
@@ -244,7 +237,7 @@ fit_model <- function(predictor) {
            conf.low = round(conf.low, 3),
            conf.high = round(conf.high, 3)) %>%
     select(term, estimate, std.error, statistic, p.value, conf.low, conf.high) %>%
-    mutate(predictor = predictor)  # Añadir nombre del predictor
+    mutate(predictor = predictor)  
   
   return(results)
 }
@@ -253,9 +246,12 @@ fit_model <- function(predictor) {
 results_ndvi <- fit_model("NDVI")
 
 # Mostrar los resultados
-print(results_ndvi, n = Inf, width = Inf)  # En lugar de results_list
+print(results_ndvi, n = Inf, width = Inf)
 
 
 # NDVI: estimate 84.7. Un aumento de 1 en NDVI se asocia con un aumento de 84.7 gramos en el peso al nacer
 # Efecto para 0.1 de cambio en NDVI=84.7×0.1=8.47 gramos adicionales en tbw
-# NDVI aumenta en 0.1 unidades, se esperaría un aumento de 8.47 gramos en el peso al nacer.
+# NDVI aumenta en 0.1 unidades, se esperaría un aumento de 8.47 gramos en el peso al nacer
+# Límite inferior: 71.1 * 0.1 = 7.11 gramos
+# Límite superior: 98.2 * 0.1 = 9.82 gramos
+# un aumento de 0.1 en NDVI se asociaría con un aumento de entre 7.1 y 9.8 gramos en el peso al nacer
