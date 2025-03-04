@@ -1,4 +1,4 @@
-# Rscript code/valparaiso.R
+# Para correr el código: Rscript code/valparaiso.R en la terminal
 # Cargar librerías
 library(dplyr)
 library(readr)
@@ -6,7 +6,7 @@ library(stringi)
 library(purrr)
 library(lubridate)
 library(stringr)
-
+library(broom)
 
 # Cargar datos corregidos de NDVI
 df_summer <- read_csv("code/green_spaces_data/summerNDVI_corregido.csv")
@@ -211,4 +211,51 @@ df_nacimientos_termino_winter <- df_nacimientos_termino_winter %>% rename(NDVI =
 df_nacimientos_termino_total <- bind_rows(df_nacimientos_termino_summer, df_nacimientos_termino_winter)
 
 # Verificar estructura después de la unión
-print(head(df_nacimientos_termino_total, 10), width = Inf)
+# print(head(df_nacimientos_termino_total, 10), width = Inf)
+
+# Regresión 
+
+# Ajustar modelo de regresión lineal (NDVI -> TBW) con variables de ajuste
+fit_model <- function(predictor) {
+  # Definir la fórmula del modelo
+  formula <- as.formula(paste("tbw ~", predictor, 
+                              "+ sex + age_group_mom + educ_group_mom + job_group_mom +",
+                              "age_group_dad + educ_group_dad + job_group_dad + year_nac"))
+
+  # Filtrar filas sin NA en las variables relevantes
+  df_filtered <- df_nacimientos_termino_total %>%
+    filter(!is.na(.data[[predictor]]), !is.na(tbw))
+
+  # Verificar si hay suficientes datos
+  if (nrow(df_filtered) < 10) {
+    warning(paste("⚠️ Pocos datos disponibles para", predictor))
+    return(NULL)
+  }
+
+  # Ajustar el modelo de regresión lineal
+  model_fit <- lm(formula, data = df_filtered)
+
+  # Extraer resultados con coeficientes y estadísticas
+  results <- tidy(model_fit, conf.int = TRUE, conf.level = 0.95) %>%
+    mutate(estimate = round(estimate, 3), 
+           std.error = round(std.error, 3),
+           statistic = round(statistic, 3),
+           p.value = round(p.value, 3),
+           conf.low = round(conf.low, 3),
+           conf.high = round(conf.high, 3)) %>%
+    select(term, estimate, std.error, statistic, p.value, conf.low, conf.high) %>%
+    mutate(predictor = predictor)  # Añadir nombre del predictor
+  
+  return(results)
+}
+
+# Ejecutar el modelo con NDVI como predictor principal
+results_ndvi <- fit_model("NDVI")
+
+# Mostrar los resultados
+print(results_ndvi, n = Inf, width = Inf)  # En lugar de results_list
+
+
+# NDVI: estimate 84.7. Un aumento de 1 en NDVI se asocia con un aumento de 84.7 gramos en el peso al nacer
+# Efecto para 0.1 de cambio en NDVI=84.7×0.1=8.47 gramos adicionales en tbw
+# NDVI aumenta en 0.1 unidades, se esperaría un aumento de 8.47 gramos en el peso al nacer.
